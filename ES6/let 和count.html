@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<script>
+var a=3;
+function demo() {
+//    var 是函数作用域
+    console.log(a);
+
+}
+demo()
+
+
+    function demo2() {
+//       let b=2;
+//        const必须 先声明在使用
+        const b=2;
+//        b=66;  //const 声明的是一个常亮 不能修改
+        console.log(b);
+
+    }
+demo2()
+
+//    let 是块级作用域
+    for(let i=0;i<10;i++){
+        console.log(i);
+    }
+
+
+for(var i=0;i<10;i++){
+    console.log(i +'var');
+}
+
+for(var i=0;i<10;i++){
+
+}
+console.log(i +'var');
+
+
+
+</script>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/Mock.js/1.0.1-beta3/mock.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>mock.js假数据生成</title>
+</head>
+<style>
+    .box {
+
+    }
+.sf {
+    width: 400px;
+    height: 400px;
+    background-color: sandybrown;
+}
+</style>
+<body>
+
+<div id="app">
+
+    <div class="sf">
+        <h1>身份展示</h1>
+
+    </div>
+    <div v-for="items in lists">
+        姓名：{{items.name}}<br>
+        性别：{{items.gender}}
+        民族：{{items.race}}<br>
+        出生：{{items.birthday}} <br>
+        地址：{{items.address}}<br>
+    </div>
+    <!--<input type="file"  >-->
+    <!--<input type="file" v-on:click="greet" >-->
+    <button  v-on:click="greet"> 获取身份证信息</button>
+</div>
+<script>
+
+    new Vue({
+        el: '#app',
+        data: {
+            lists:''
+        },
+        methods: {
+            greet: function (event) {
+//                alert('Hello ' + this.name + '!')
+                //ajax请求
+                var that = this;
+                $.ajax({
+                    url: "https://api-cn.faceplusplus.com/cardpp/v1/ocridcard",    //请求的url地址
+                    dataType: "json",   //返回格式为json
+                    async: true, //请求是否异步，默认为异步，这也是ajax重要特性
+                    data: {
+                        api_key:'fzrB96g856NPni5Rc9FIfo-o6CJW22s3',
+                        api_secret:'u2SP4G5NIhyt8NGo4NAy_XQzSUgbtucD',
+                        image_url:'http://p02aoly9m.bkt.clouddn.com/1.jpg',
+                        legality:1
+                      },    //参数值
+                    type: "POST",   //请求方式
+                    beforeSend: function () {
+                        //请求前的处理
+                    },
+                    success: function (req) {
+                        //请求成功时处理
+                        console.log('请求成功');
+                        console.log(req);
+                        that.lists = req.cards;
+
+                    },
+                    complete: function () {
+                        //请求完成的处理
+                    },
+                    error: function () {
+                        //请求出错处理
+                    }
+                });
+
+            }
+        }
+    })
+
+    //调用mock方法模拟数据
+    Mock.mock(
+        'http://mockjs', {
+            "data|10": [{
+                "userName": '@cname',     //模拟名称
+                "age|1-100": 100,          //模拟年龄(1-100)
+                "color": "@color",    //模拟色值
+                "date": "@date('yyyy-MM-dd')",  //模拟时间
+                "url": "@url()",     //模拟url
+                "content": "@cparagraph()", //模拟文本
+                'name': '@cname',  // 中文名称
+                'id|+1': 88,    // 属性值自动加 1，初始值为88
+                'age|18-28': 0,   // 18至28以内随机整数, 0只是用来确定类型
+                'birthday': '@date("yyyy-MM-dd")',  // 日期
+                'city': '@city(true)',   // 中国城市
+                'isMale|1': true,  // 布尔值
+                'isFat|1-2': true,  // true的概率是1/3
+                'brother|1': ['jack', 'jim'], // 随机选取 1 个元素
+                'sister|+1': ['jack', 'jim', 'lily'], // array中顺序选取元素作为结果
+                'friends|2': ['jack', 'jim']
+            }
+            ]
+        }
+    );
+
+
+</script>
+
+</body>
+</html>

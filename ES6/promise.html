@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<script>
+
+
+//    var promise = new Promise(function(resolve, reject) {
+//        if (/* 异步操作成功 */){
+//            resolve(value);
+//        } else {
+//            reject(error);
+//        }
+//    });
+//
+//    promise.then(function(value) {
+//        // success
+//    }, function(value) {
+//        // failure
+//    });
+
+//(  function myfunction() {
+//    console.log( typeof NaN )
+//})()
+
+
+//var promise = new Promise(function(resolve, reject) {
+//    if (3>1){
+//        resolve(666);
+//    } else {
+//        reject(error);
+//    }
+//});
+
+//console.log(promise);
+
+//promise.then(function(value) {
+//    console.log(value);
+//}, function(value) {
+//    // failure
+//});
+
+//抛出异常
+
+//new Promise(function (resolve, reject) {
+//    throw new Error('悲剧了，又出 bug 了');
+//}).catch(function(err){
+//    console.log(err);
+//});
+
+//如果是同步代码，可以写成
+//Promise.reject(new Error("什么鬼"));
+//
+//somePromise.then(function() {
+//    return a.b.c.d();
+//}).catch(TypeError, function(e) {
+//    //If a is defined, will end up here because
+//    //it is a type error to reference property of undefined
+//}).catch(ReferenceError, function(e) {
+//    //Will end up here if a wasn't defined at all
+//}).catch(function(e) {
+//    //Generic catch-the rest, error wasn't TypeError nor
+//    //ReferenceError
+//});
+
+
+//{
+//    let a = 10;
+//    console.log(a);   // ReferenceError: a is not defined.
+//}
+//var b = 1;
+//
+//console.log(b);   // 1
+
+
+
+//function Begin() {
+//    setInterval(function () {
+//        for( let i=0; i<10;i++){console.log(i)}
+//    },1000)
+//}
+
+
+//    var a=[];
+//    for(var i=0;i<10;i++){
+//        a[i]=function () {
+//            console.log(i);
+//        }
+//    }
+//    a[6]();
+
+//for (let i = 0; i < 3; i++) {
+//    let i = 'abc';
+//    console.log(i);
+//}   3个abc
+
+
+//function f() { console.log('I am outside!'); }
+//
+//(function () {
+//    if (true) {
+//        // 重复声明一次函数f
+//        function f() { console.log('I am inside!'); }
+//    }
+//    else {
+//
+//        console.log('I am outside!');
+//    }
+//
+//    f();
+//}());
+
+
+//function f() { console.log('I am outside!'); }
+//
+//(function () {
+//    function f() { console.log('I am inside!'); }
+//    if (false) {
+//
+//    }
+//    f();
+//}());
+
+// 浏览器的 ES6 环境
+
+//function f() { console.log('I am outside!'); }
+//
+//(function () {
+//    if (false) {
+//        // 重复声明一次函数f
+//        function f() { console.log('I am inside!'); }
+//    }
+//
+//    f();
+//}());
+
+
+//// var 的情况
+//console.log(foo); // 输出undefined
+//var foo = 2;
+//
+//// let 的情况
+//console.log(bar); // 报错ReferenceError
+//let bar = 2;
+
+//var tmp = 123;
+//
+//if (true) {
+//
+//    console.log(tmp);
+//    let tmp;
+//    tmp = 'abc'; // ReferenceError
+//
+//}
+function studyes6() {
+    let bian='155';
+
+    function p1() {
+        return new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                console.log('1111');
+                console.log(bian);
+                reject(123123)
+
+            }, 1000);
+        });
+    }
+
+
+    function p2() {
+        return new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                console.log('2222');
+                resolve(2222+'resolve')
+                console.log(bian+'第一个传递的值');
+                bian='0387';
+            }, 2000);
+        });
+    }
+
+    function p3() {
+        return new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                console.log('3333');
+                console.log(bian+'第二个传递的值');
+                bian='8257';
+                resolve(3333+'resolve')
+            }, 3000);
+
+        });
+    }
+
+    function p4() {
+        return new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                console.log('4444');
+                console.log(bian+'第三个传递的值');
+                resolve(4444+'resolve')
+            }, 3000);
+
+        });
+    }
+
+    p1().then(p2).then(p3).then(function (data) {
+        console.log('收到的参数:'+data);
+    }).catch(function (err) {
+        console.log('出错'+err)
+        if(err==123123){
+            p2().then(p3).then(p4)
+        }
+    })
+
+}
+
+
+studyes6()
+
+
+</script>
+
+<body>
+<input type="button" value="press" onclick="Begin()">
+</body>
+</html>
